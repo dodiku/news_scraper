@@ -1,11 +1,8 @@
 '''
 [v] receive a list of companies
 [v] go to ft.com (or any other page) and get all links to articles that their headline includes at least one of the company names
-[ ] create a spreadsheet with the list of the relevant articles
-[ ] bonus: print nicely on terminal
-
-
-
+[v] create a spreadsheet with the list of the relevant articles
+[v] bonus: print nicely on terminal
 '''
 
 import requests
@@ -101,35 +98,3 @@ if problematic_urls != []:
     for website in problematic_urls:
         print ('\n\t' + colored('• '+website, 'grey'))
     print ('\n\n')
-#
-#
-# 📰
-#
-# 📖
-# a.split(a[a.find(b):a.find(b)+len(b)])
-#
-# empji <title + colored company name>
-# <url>
-# <source>
-#
-# text = colored('Hello, World!', 'red') + 'bla'
-# print(text)
-# text = colored('Hello, World!', 'cyan')
-# print(text)
-# text = colored('Hello, World!', 'green')
-# print(text)
-# text = colored('Hello, World!', 'blue')
-# print(text)
-# text = colored('Hello, World!', 'magenta')
-# print(text)
-# text = colored('Hello, World!', 'grey')
-# print(text)
-# cyan
-# grey
-# red
-# green
-# yellow
-# blue
-# magenta
-# cyan
-# white
