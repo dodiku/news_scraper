@@ -1,8 +1,8 @@
 '''
 [v] receive a list of companies
 [v] go to ft.com (or any other page) and get all links to articles that their headline includes at least one of the company names
-[3] create a spreadsheet with the list of the relevant articles
-[] bonus: print nicely on terminal
+[ ] create a spreadsheet with the list of the relevant articles
+[ ] bonus: print nicely on terminal
 
 empji <title + colored company name>
 <url>
@@ -12,8 +12,8 @@ empji <title + colored company name>
 
 import requests
 from lxml import html
-# import bs4
 from bs4 import BeautifulSoup
+import csv
 
 
 '''---------------
@@ -61,3 +61,21 @@ for website in urls:
                 'source': website,
                 }
                 articles.append(obj)
+
+
+'''---------------
+saving articles from {articles} to csv file
+---------------'''
+with open('articles.csv', 'w') as csv_file:
+    writer = csv.writer(csv_file, delimiter=',')
+    for item in articles:
+        row = []
+        row.append(item['title'])
+        row.append(item['url'])
+        row.append(item['source'])
+        writer.writerow(row)
+
+
+'''---------------
+presenting {articles} on the terminal
+---------------'''
