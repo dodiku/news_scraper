@@ -4,9 +4,7 @@
 [ ] create a spreadsheet with the list of the relevant articles
 [ ] bonus: print nicely on terminal
 
-empji <title + colored company name>
-<url>
-<source>
+
 
 '''
 
@@ -14,6 +12,7 @@ import requests
 from lxml import html
 from bs4 import BeautifulSoup
 import csv
+from termcolor import colored
 
 
 '''---------------
@@ -56,6 +55,7 @@ for website in urls:
         for c in companies:
             if (c.lower() in title.lower()) and (c.lower() != title.lower()) and ('google+'.lower() != title.lower()):
                 obj = {
+                'company': c,
                 'title': link.get_text().strip().split('\t')[0].split('\n')[0],
                 'url': link.get('href').split('?')[0],
                 'source': website,
@@ -70,6 +70,7 @@ with open('articles.csv', 'w') as csv_file:
     writer = csv.writer(csv_file, delimiter=',')
     for item in articles:
         row = []
+        row.append(item['company'])
         row.append(item['title'])
         row.append(item['url'])
         row.append(item['source'])
@@ -79,3 +80,56 @@ with open('articles.csv', 'w') as csv_file:
 '''---------------
 presenting {articles} on the terminal
 ---------------'''
+print ('\n')
+
+for item in articles:
+    full_title = item['title']
+    company = item['company']
+    company_pos_start = full_title.lower().find(company.lower())
+    company_pos_end = full_title.lower().find(company.lower())+len(company)
+    company_real = full_title[company_pos_start:company_pos_end]
+    broken_title = full_title.split(company_real)
+    final_title = '👉  ' + colored(broken_title[0], 'blue') + colored(company_real, 'magenta') + colored(broken_title[1], 'blue')
+    print (final_title)
+
+    url = colored(item['url'], 'grey')
+    print ('  ', url, '\n')
+
+
+if problematic_urls != []:
+    print (colored('\n\n🙈  we could not get articles from the following website(s):', 'grey'))
+    for website in problematic_urls:
+        print ('\n\t' + colored('• '+website, 'grey'))
+    print ('\n\n')
+#
+#
+# 📰
+#
+# 📖
+# a.split(a[a.find(b):a.find(b)+len(b)])
+#
+# empji <title + colored company name>
+# <url>
+# <source>
+#
+# text = colored('Hello, World!', 'red') + 'bla'
+# print(text)
+# text = colored('Hello, World!', 'cyan')
+# print(text)
+# text = colored('Hello, World!', 'green')
+# print(text)
+# text = colored('Hello, World!', 'blue')
+# print(text)
+# text = colored('Hello, World!', 'magenta')
+# print(text)
+# text = colored('Hello, World!', 'grey')
+# print(text)
+# cyan
+# grey
+# red
+# green
+# yellow
+# blue
+# magenta
+# cyan
+# white
